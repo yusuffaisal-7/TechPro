@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Heart } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import type { Product } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 interface ProductCardProps {
   product: Product;
@@ -13,12 +14,21 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const { addItem } = useCart();
   const { toast } = useToast();
+  const [isWishlisted, setIsWishlisted] = useState(false);
 
   const handleAddToCart = () => {
     addItem(product);
     toast({
       title: "Added to cart",
       description: `${product.name} has been added to your cart.`,
+    });
+  };
+
+  const handleToggleWishlist = () => {
+    setIsWishlisted(!isWishlisted);
+    toast({
+      title: isWishlisted ? "Removed from wishlist" : "Added to wishlist",
+      description: `${product.name} has been ${isWishlisted ? "removed from" : "added to"} your wishlist.`,
     });
   };
 
@@ -41,6 +51,18 @@ export default function ProductCard({ product }: ProductCardProps) {
           />
           <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 
             transition-opacity duration-300" />
+          <Button
+            variant="ghost"
+            size="icon"
+            className={`absolute top-2 right-2 transition-transform duration-300 ${
+              isWishlisted ? "text-primary" : "text-white"
+            }`}
+            onClick={handleToggleWishlist}
+          >
+            <Heart
+              className={`h-5 w-5 ${isWishlisted ? "fill-primary" : ""}`}
+            />
+          </Button>
         </div>
         <CardContent className="p-6">
           <motion.h3 

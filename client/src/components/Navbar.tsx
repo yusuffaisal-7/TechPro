@@ -1,8 +1,9 @@
 import { Link, useLocation } from "wouter";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Search } from "lucide-react";
 import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 import Logo from "./Logo";
 import { useCart } from "@/lib/cart";
 
@@ -57,6 +58,13 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-4">
+            <div className="relative hidden md:block">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input 
+                className="w-[200px] pl-10" 
+                placeholder="Search products..." 
+              />
+            </div>
             <Link href="/cart">
               <Button variant="outline" size="icon" className="relative">
                 <ShoppingCart className="h-5 w-5" />
