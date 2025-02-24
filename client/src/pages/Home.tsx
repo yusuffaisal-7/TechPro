@@ -6,6 +6,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import type { Product } from "@shared/schema";
 import ProductCard from "@/components/ProductCard";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const { data: products } = useQuery<Product[]>({
@@ -167,6 +168,7 @@ export default function Home() {
           </ScrollAnimation>
         </div>
       </section>
+      <Footer />
     </div>
   );
 }
