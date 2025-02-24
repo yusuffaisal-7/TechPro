@@ -1,9 +1,9 @@
 import { Link, useLocation } from "wouter";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { ShoppingCart, Search } from "lucide-react";
+import { ShoppingCart, Menu } from "lucide-react";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Logo from "./Logo";
 import { useCart } from "@/lib/cart";
 
@@ -35,6 +35,7 @@ export default function Navbar() {
             </a>
           </Link>
 
+          {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
             {navItems.map((item) => (
               <Link key={item.href} href={item.href}>
@@ -58,13 +59,6 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="relative hidden md:block">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-              <Input 
-                className="w-[200px] pl-10" 
-                placeholder="Search products..." 
-              />
-            </div>
             <Link href="/cart">
               <Button variant="outline" size="icon" className="relative">
                 <ShoppingCart className="h-5 w-5" />
@@ -79,8 +73,38 @@ export default function Navbar() {
               </Button>
             </Link>
             <Link href="/profile">
-              <Button variant="default" size="sm">Profile</Button>
+              <Button variant="default" size="sm" className="hidden md:inline-flex">
+                Profile
+              </Button>
             </Link>
+
+            {/* Mobile Menu */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" size="icon" className="md:hidden">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+                <nav className="flex flex-col gap-4">
+                  {navItems.map((item) => (
+                    <Link key={item.href} href={item.href}>
+                      <a className={cn(
+                        "block px-2 py-1 text-lg transition-colors hover:text-primary",
+                        location === item.href ? "text-primary" : "text-muted-foreground"
+                      )}>
+                        {item.label}
+                      </a>
+                    </Link>
+                  ))}
+                  <Link href="/profile">
+                    <Button variant="default" className="w-full mt-4">
+                      Profile
+                    </Button>
+                  </Link>
+                </nav>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </div>

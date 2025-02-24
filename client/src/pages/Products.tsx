@@ -14,15 +14,17 @@ export default function Products() {
   return (
     <div className="min-h-screen pt-24">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center">
-          <h1 className="text-4xl font-bold">Our Products</h1>
-          <div className="relative w-72">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-            <Input className="pl-10" placeholder="Search products..." />
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <h1 className="text-3xl sm:text-4xl font-bold">Our Products</h1>
+          <div className="w-full sm:w-72">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Input className="pl-10 w-full" placeholder="Search products..." />
+            </div>
           </div>
         </div>
 
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {isLoading
             ? Array.from({ length: 12 }).map((_, i) => (
                 <motion.div
@@ -44,7 +46,9 @@ export default function Products() {
               ))}
         </div>
       </div>
-      <Footer />
+      <div className="mt-24">
+        <Footer />
+      </div>
     </div>
   );
 }
