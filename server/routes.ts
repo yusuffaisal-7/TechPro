@@ -3,10 +3,14 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import multer from "multer";
 import { insertReviewSchema, insertUserSchema } from "@shared/schema";
+import { setupAuth } from "./auth";
 
 const upload = multer({ dest: "uploads/" });
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Setup authentication
+  setupAuth(app);
+
   // Products routes
   app.get("/api/products", async (_req, res) => {
     const products = await storage.getProducts();
@@ -36,7 +40,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         rating: Number(req.body.rating),
         userId: Number(req.body.userId),
       });
-      
+
       const review = await storage.createReview(reviewData);
       res.json(review);
     } catch (error) {

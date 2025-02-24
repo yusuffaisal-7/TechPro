@@ -18,8 +18,18 @@ export default function Home() {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-screen flex items-center overflow-hidden">
-        {/* Animated background elements */}
+        {/* Spline Animation */}
         <div className="absolute inset-0 -z-10">
+          <iframe
+            src="https://my.spline.design/cutecomputerfollowcursor-beae82959c6b58e89d8091fd3c43a8eb/"
+            frameBorder="0"
+            width="100%"
+            height="100%"
+          />
+        </div>
+
+        {/* Animated background elements */}
+        <div className="absolute inset-0 -z-20">
           <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
           {Array.from({ length: 3 }).map((_, i) => (
             <motion.div
