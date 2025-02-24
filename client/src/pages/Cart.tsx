@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "wouter";
 
 export default function Cart() {
   const { items, removeItem, updateQuantity, total } = useCart();
@@ -95,7 +96,9 @@ export default function Cart() {
                       </div>
                     </div>
                   </div>
-                  <Button className="w-full mt-6">Proceed to Checkout</Button>
+                  <Link href="/checkout">
+                    <Button className="w-full mt-6">Proceed to Checkout</Button>
+                  </Link>
                 </CardContent>
               </Card>
             </div>

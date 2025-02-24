@@ -61,18 +61,18 @@ export default function Footer() {
           </div>
 
           {/* Newsletter */}
-          <div>
+          <div className="md:col-span-1">
             <h3 className="font-semibold text-lg">Subscribe</h3>
             <p className="mt-2 text-sm text-muted-foreground">
               Stay updated with our latest products and offers.
             </p>
-            <div className="mt-4 flex gap-2">
+            <div className="mt-4 space-y-2">
               <Input
                 type="email"
                 placeholder="Enter your email"
-                className="max-w-[200px]"
+                className="w-full"
               />
-              <Button>Subscribe</Button>
+              <Button className="w-full">Subscribe</Button>
             </div>
           </div>
         </div>

@@ -12,6 +12,7 @@ import Reviews from "@/pages/Reviews";
 import Contact from "@/pages/Contact";
 import Profile from "@/pages/Profile";
 import Cart from "@/pages/Cart";
+import Checkout from "@/pages/Checkout";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -24,6 +25,7 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/profile" component={Profile} />
       <Route path="/cart" component={Cart} />
+      <Route path="/checkout" component={Checkout} />
       <Route component={NotFound} />
     </Switch>
   );
