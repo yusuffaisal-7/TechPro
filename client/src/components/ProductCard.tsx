@@ -28,10 +28,10 @@ export default function ProductCard({ product }: ProductCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       viewport={{ once: true }}
-      whileHover={{ y: -5 }}
+      whileHover={{ y: -5, transition: { type: "spring", stiffness: 300 } }}
     >
-      <Card className="overflow-hidden">
-        <div className="aspect-square overflow-hidden">
+      <Card className="overflow-hidden group">
+        <div className="aspect-square overflow-hidden relative">
           <motion.img
             src={product.imageUrl}
             alt={product.name}
@@ -39,16 +39,40 @@ export default function ProductCard({ product }: ProductCardProps) {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           />
+          <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 
+            transition-opacity duration-300" />
         </div>
         <CardContent className="p-6">
-          <h3 className="text-lg font-semibold">{product.name}</h3>
-          <p className="mt-2 text-sm text-muted-foreground">{product.description}</p>
-          <div className="mt-4 font-semibold">${product.price}</div>
+          <motion.h3 
+            className="text-lg font-semibold group-hover:text-primary transition-colors duration-300"
+          >
+            {product.name}
+          </motion.h3>
+          <motion.p 
+            className="mt-2 text-sm text-muted-foreground group-hover:text-muted-foreground/80 
+              transition-colors duration-300"
+          >
+            {product.description}
+          </motion.p>
+          <motion.div 
+            className="mt-4 font-semibold group-hover:text-primary transition-colors duration-300"
+          >
+            ${product.price}
+          </motion.div>
         </CardContent>
         <CardFooter className="p-6 pt-0">
-          <Button className="w-full" onClick={handleAddToCart}>
-            <ShoppingCart className="mr-2 h-4 w-4" />
-            Add to Cart
+          <Button 
+            className="w-full group-hover:bg-primary/90 transition-colors duration-300" 
+            onClick={handleAddToCart}
+          >
+            <motion.span
+              className="flex items-center"
+              whileHover={{ x: 5 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <ShoppingCart className="mr-2 h-4 w-4" />
+              Add to Cart
+            </motion.span>
           </Button>
         </CardFooter>
       </Card>
