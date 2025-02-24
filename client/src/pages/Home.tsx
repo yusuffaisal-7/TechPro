@@ -28,40 +28,13 @@ export default function Home() {
           />
         </div>
 
-        {/* Animated background elements */}
-        <div className="absolute inset-0 -z-20">
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
-          {Array.from({ length: 3 }).map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute bg-primary/5 rounded-full"
-              style={{
-                width: `${300 + i * 200}px`,
-                height: `${300 + i * 200}px`,
-                top: `${50 + i * 20}%`,
-                left: `${20 + i * 20}%`,
-              }}
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.2, 0.3],
-                x: [0, 50, 0],
-                y: [0, 30, 0],
-              }}
-              transition={{
-                duration: 10 + i * 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            />
-          ))}
-        </div>
-
-        <div className="container mx-auto px-4">
+        {/* Content */}
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-3xl"
+            className="max-w-3xl backdrop-blur-sm bg-background/80 p-8 rounded-lg border"
           >
             <motion.div
               initial={{ scale: 0.5, opacity: 0 }}
@@ -92,6 +65,33 @@ export default function Home() {
               </Link>
             </div>
           </motion.div>
+        </div>
+        {/* Animated background elements */}
+        <div className="absolute inset-0 -z-20">
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
+          {Array.from({ length: 3 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute bg-primary/5 rounded-full"
+              style={{
+                width: `${300 + i * 200}px`,
+                height: `${300 + i * 200}px`,
+                top: `${50 + i * 20}%`,
+                left: `${20 + i * 20}%`,
+              }}
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.2, 0.3],
+                x: [0, 50, 0],
+                y: [0, 30, 0],
+              }}
+              transition={{
+                duration: 10 + i * 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
         </div>
       </section>
 
