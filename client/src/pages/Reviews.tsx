@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import ReviewCard from "@/components/ReviewCard";
 import type { Review } from "@shared/schema";
+import { motion } from 'framer-motion';
 
 export default function Reviews() {
   const { toast } = useToast();
@@ -22,7 +23,7 @@ export default function Reviews() {
     },
   });
 
-  const { data: reviews, isLoading } = useQuery<Review[]>({
+  const { data: reviews, isLoading: isLoadingReviews } = useQuery<Review[]>({
     queryKey: ["/api/reviews"],
   });
 
@@ -46,11 +47,11 @@ export default function Reviews() {
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value as string);
     });
-    
+
     if (data.photo?.[0]) {
       formData.append("photo", data.photo[0]);
     }
-    
+
     mutation.mutate(formData);
   };
 
@@ -108,7 +109,15 @@ export default function Reviews() {
                 />
 
                 <Button type="submit" disabled={mutation.isPending}>
-                  Submit Review
+                  {mutation.isPending ? (
+                    <motion.div
+                      className="h-5 w-5 border-2 border-current border-t-transparent rounded-full"
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    />
+                  ) : (
+                    "Submit Review"
+                  )}
                 </Button>
               </form>
             </Form>
@@ -117,9 +126,29 @@ export default function Reviews() {
           <div>
             <h2 className="text-2xl font-semibold mb-6">Recent Reviews</h2>
             <div className="space-y-4">
-              {reviews?.map((review) => (
-                <ReviewCard key={review.id} review={review} />
-              ))}
+              {isLoadingReviews ? (
+                Array.from({ length: 3 }).map((_, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1, delay: i * 0.2 }}
+                    className="bg-muted rounded-lg p-6"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="h-10 w-10 rounded-full bg-muted-foreground/10 animate-pulse" />
+                      <div className="flex-1 space-y-2">
+                        <div className="h-4 w-24 bg-muted-foreground/10 animate-pulse rounded" />
+                        <div className="h-4 w-full bg-muted-foreground/10 animate-pulse rounded" />
+                      </div>
+                    </div>
+                  </motion.div>
+                ))
+              ) : (
+                reviews?.map((review) => (
+                  <ReviewCard key={review.id} review={review} />
+                ))
+              )}
             </div>
           </div>
         </div>

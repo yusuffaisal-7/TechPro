@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "./ui/button";
 import Logo from "./Logo";
+import { useCart } from "@/lib/cart";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -15,6 +16,8 @@ const navItems = [
 
 export default function Navbar() {
   const [location] = useLocation();
+  const { items } = useCart();
+  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <motion.nav 
@@ -57,9 +60,14 @@ export default function Navbar() {
             <Link href="/cart">
               <Button variant="outline" size="icon" className="relative">
                 <ShoppingCart className="h-5 w-5" />
-                <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full w-5 h-5 text-xs flex items-center justify-center">
-                  0
-                </span>
+                <motion.span
+                  key={cartCount}
+                  initial={{ scale: 0.5, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  className="absolute -top-2 -right-2 bg-primary text-primary-foreground rounded-full w-5 h-5 text-xs flex items-center justify-center"
+                >
+                  {cartCount}
+                </motion.span>
               </Button>
             </Link>
             <Link href="/profile">
