@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -15,22 +15,6 @@ import Cart from "@/pages/Cart";
 import Checkout from "@/pages/Checkout";
 import NotFound from "@/pages/not-found";
 
-function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/about" component={About} />
-      <Route path="/products" component={Products} />
-      <Route path="/reviews" component={Reviews} />
-      <Route path="/contact" component={Contact} />
-      <Route path="/profile" component={Profile} />
-      <Route path="/cart" component={Cart} />
-      <Route path="/checkout" component={Checkout} />
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
-
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -39,7 +23,19 @@ function App() {
           <div className="relative">
             <Navbar />
             <main>
-              <Router />
+              <Router>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/products" element={<Products />} />
+                  <Route path="/reviews" element={<Reviews />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/cart" element={<Cart />} />
+                  <Route path="/checkout" element={<Checkout />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Router>
             </main>
           </div>
           <Toaster />
@@ -48,5 +44,3 @@ function App() {
     </QueryClientProvider>
   );
 }
-
-export default App;
